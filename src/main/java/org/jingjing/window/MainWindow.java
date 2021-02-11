@@ -1,8 +1,8 @@
 package org.jingjing.window;
 
-import org.jingjing.Ping;
-import org.jingjing.action.search.Search;
-import org.jingjing.action.search.SearchFactory;
+
+import org.jingjing.action.Ping;
+import org.jingjing.action.search.Baidu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainWindow {
-    String searchSource ="百度";
 
     public void open(){
         JFrame jFrame = new JFrame();
@@ -18,21 +17,20 @@ public class MainWindow {
         GridLayout layout = new GridLayout(5, 4);
         JPanel jPanel = new JPanel(layout);
 
-        jFrame.setSize(250,200);
+        jFrame.setSize(500,400);
         jFrame.setContentPane(jPanel);
         jFrame.setContentPane(jPanel);
         jFrame.setVisible(true);
 
         Font font=new Font("宋体",Font.BOLD,20);
 
-        JButton searchButton = new JButton(searchSource);
+        JButton searchButton = new JButton("百度");
         jPanel.add(searchButton);
         searchButton.setFont(font);
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SearchFactory searchFactory = new SearchFactory();
-                Search search = searchFactory.getSearch(searchSource);
-                search.search();
+                Baidu baudu = new Baidu();
+                baudu.search();
             }
         });
 
@@ -48,7 +46,7 @@ public class MainWindow {
         });
 
 
-        jPanel.add(new JButton("ping2"));
+        jPanel.add(new JButton("提取文件"));
         jPanel.add(new JButton("ping3"));
         jPanel.add(new JButton("ping4"));
         jPanel.add(new JButton("ping5"));

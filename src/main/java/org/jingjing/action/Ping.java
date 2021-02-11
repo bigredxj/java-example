@@ -1,21 +1,20 @@
-package org.jingjing;
+package org.jingjing.action;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import lombok.extern.slf4j.Slf4j;
 import org.jingjing.util.CommonUtil;
 
+@Slf4j
 public class Ping {
-    private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
-
     public void ping(){
         try {
             String ip = CommonUtil.getClipboardString();
             String cmd = "cmd /c start cmd.exe /k   ping " + ip;
-            logger.info(cmd);
+            log.info(cmd);
             Process process = Runtime.getRuntime().exec(cmd);
 
         }catch (Exception e){
-            logger.error("",e);
+            log.error("",e);
         }
     }
 }

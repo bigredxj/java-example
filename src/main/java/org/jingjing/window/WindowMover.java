@@ -57,11 +57,20 @@ public class WindowMover extends Thread {
 
     public void run() {
 
-        if (window.getLocation().equals(point))
+        if (window.getLocation().equals(point)) {
+            //System.out.println("如果已在目的点");
+            for (ComponentListener cl : componentListeners) {
+                window.addComponentListener(cl);
+            }
             return;// 如果已在目的点，则返回
-        if (!window.isVisible())
+        }
+        if (!window.isVisible()) {
+            //System.out.println("如果窗口是不可视的则返回");
+            for (ComponentListener cl : componentListeners) {
+                window.addComponentListener(cl);
+            }
             return;// 如果窗口是不可视的则返回
-
+        }
         while (index < FRAMES) {
             Point p = window.getLocation();
             if (p.x != point.x)
@@ -86,7 +95,7 @@ public class WindowMover extends Thread {
         window = null;
         point = null;
         componentListeners = null;
-        System.out.println("finsh Moved");
+        //System.out.println("finsh Moved");
     }
 
 }

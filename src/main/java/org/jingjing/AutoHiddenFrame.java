@@ -1,7 +1,9 @@
 package org.jingjing;
 
-import org.jingjing.action.search.Search;
-import org.jingjing.action.search.SearchFactory;
+import org.jingjing.action.ExtractFile;
+import org.jingjing.action.Ping;
+import org.jingjing.action.search.Baidu;
+import org.jingjing.action.search.CSDN;
 import org.jingjing.window.WindowLocationListener;
 import org.jingjing.window.WindowMouseListener;
 import org.jingjing.window.WindowMover;
@@ -12,13 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AutoHiddenFrame extends JFrame {
-    String searchSource ="百度";
     private static final long serialVersionUID = 1L;
-    public static void main(String args[])
-    {
-        new AutoHiddenFrame();
-    }
-
 
     public static final int NORMAL = 0;			//窗体的普通状态
     public static final int CANHIDD = 1;		//窗体位于屏幕边缘,可以隐藏的状态
@@ -30,28 +26,40 @@ public class AutoHiddenFrame extends JFrame {
 
     private JLabel infoLabel;				//用于显示信息的JLabel;
     public AutoHiddenFrame() {
-        JPanel jPanel = new JPanel( new GridLayout(5, 4));
+        JPanel jPanel = new JPanel( new GridLayout(4, 4));
 
         setAlwaysOnTop(true);
+        setResizable(false);
         setContentPane(jPanel);	//替换掉原来的ContentPane,换上一个带有Insets的,至于为什么去看WindowMouseListener类
         //infoLabel = new JLabel();
         //add(infoLabel,BorderLayout.SOUTH);
-        setSize(300,200);
+        setSize(600,400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        Font font=new Font("宋体",Font.BOLD,20);
+        Font font=new Font("宋体",Font.BOLD,30);
 
-        JButton searchButton = new JButton(searchSource);
+        JButton searchButton = new JButton("百度");
         jPanel.add(searchButton);
         searchButton.setFont(font);
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SearchFactory searchFactory = new SearchFactory();
-                Search search = searchFactory.getSearch(searchSource);
-                search.search();
+                Baidu baidu = new Baidu();
+                baidu.search();
             }
         });
+
+        JButton csdnButton = new JButton("CSDN");
+        jPanel.add(csdnButton);
+        csdnButton.setFont(font);
+        csdnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CSDN csdn = new CSDN();
+                csdn.search();
+            }
+        });
+
+
 
 
         JButton pingButton = new JButton("ping");
@@ -65,7 +73,17 @@ public class AutoHiddenFrame extends JFrame {
         });
 
 
-        jPanel.add(new JButton("ping2"));
+        JButton extractFileButton = new JButton("提取文件");
+        extractFileButton.setFont(font);
+        jPanel.add(extractFileButton);
+        extractFileButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ExtractFile extractFile = new ExtractFile();
+                extractFile.extract();
+            }
+        });
+
+
         jPanel.add(new JButton("ping3"));
         jPanel.add(new JButton("ping4"));
         jPanel.add(new JButton("ping5"));
@@ -77,6 +95,7 @@ public class AutoHiddenFrame extends JFrame {
         new WindowMouseListener(this);
         WindowLocationListener.checkAutoHiddenState(this);//刚出来就检查一下窗体的位置
     }
+
 
     /**
      * @param newState 新的状态
@@ -117,7 +136,7 @@ public class AutoHiddenFrame extends JFrame {
     {
         if(visiblePoint!=null)
         {
-            System.out.println("visible");
+            //System.out.println("visible");
             WindowMover.moveToPoint(this, visiblePoint);
             setStates(CANHIDD);
         }
@@ -127,7 +146,7 @@ public class AutoHiddenFrame extends JFrame {
     {
         if(hiddenPoint!=null)
         {
-            System.out.println("hide");
+            //System.out.println("hide");
             WindowMover.moveToPoint(this, hiddenPoint);
             setStates(HIDDEN);
         }
@@ -139,7 +158,7 @@ public class AutoHiddenFrame extends JFrame {
     }
     public void clearInfo()
     {
-        infoLabel.setText("");
+        //infoLabel.setText("");
     }
 }
 

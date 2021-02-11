@@ -1,14 +1,14 @@
 package org.jingjing.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+@Slf4j
 public class PropertiesUtil {
-    private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
     public static Properties properties = new Properties();
 
     static {
@@ -18,7 +18,7 @@ public class PropertiesUtil {
                     File.separator + "conf" + File.separator + "app.properties"));
             properties.load(inputStream);
         }catch (Exception e){
-            logger.error("",e);
+            log.error("",e);
         }
     }
 
