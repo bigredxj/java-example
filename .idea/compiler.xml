@@ -7,8 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="desk-app" />
         <module name="desk_app" />
+        <module name="desk-app" />
+        <module name="java_example" />
+        <module name="java-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />
